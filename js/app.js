@@ -16,7 +16,7 @@ $(document).ready(function() {
     function fetchData(id){
 
         //Dynamic Source
-        var resourceUrl = "http://www.reddit.com/r/"+id+"porn/top.json";
+        var resourceUrl = "https://www.reddit.com/r/"+id+"porn/top.json";
         
         $('.spinner').show();
           setTimeout(function () {
