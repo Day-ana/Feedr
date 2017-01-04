@@ -1,20 +1,14 @@
 // GA SF JS05
 // Dayana
-
-/*
-  Please add all Javascript code to this file.
-*/
+/* Please add all Javascript code to this file. */
 $(document).ready(function() {
-
 
   $('.feed').on('click', function(el){
       $('#main').html(" ");
-      fetchData(el.currentTarget.id)
-
+      fetchData(el.currentTarget.id);
   })
 
     function fetchData(id){
-
         //Dynamic Source
         var resourceUrl = "https://www.reddit.com/r/"+id+"porn/top.json";
         
@@ -29,12 +23,12 @@ $(document).ready(function() {
                       renderArticle(data);
                         $('.spinner').hide();
                   },
-                  error: function(){
-                    alert('Can\'t connect')
+                  error: function(error){
+                    console.log(error);
+                    alert('Can\'t connect');
                   }
                 });
           }, 10);
-
     }
 
     function Reddit(el){
@@ -55,7 +49,6 @@ $(document).ready(function() {
           //Lets call our Reddit contructor function
           var article = new Reddit(i.data)
           renderContent(article);
-          // $('section#main').removeClass('loader');
         });
     }
     function renderContent(data){
@@ -80,23 +73,30 @@ $(document).ready(function() {
         $('#popUp .container a').html('See more from '+data.domain)
         $('#popUp .container a').attr('href', data.url)
       })
-
     }
-
-    //Close PopUp if read more is clicked
-    $('.popUpAction').on('click', function(){
-      $('.closePopUp').click();
-    })
 
     //Close PopUp
     $('.closePopUp').on('click', function(){
        $('#popUp').addClass('hidden loader');
-    })
+    });
+
+    //Close PopUp if read more is clicked
+    $('.popUpAction').on('click', function(){
+      $('.closePopUp').click();
+    });
+
+    //Close PopUp on Esc
+    $(document).keydown(function(e){
+       var code = e.keyCode || e.which;
+       if(code == 27){
+          $('.closePopUp').click();
+      }
+    });
 
     //Toggle Search
     $('.toggle-search').on('click', function(){
         $('#search').toggleClass('active');
-    })
+    });
 
     $('#search input').keyup(function() {
       var txt = $('input').val();
@@ -113,9 +113,9 @@ $(document).ready(function() {
     //Refresh Page
     $('#home').on('click', function(){
         location.reload();
-    })
+    });
 
-    //Render All sources
+    //Render All Sources
     $('.feed').click();
 
 });
